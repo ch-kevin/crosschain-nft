@@ -15,4 +15,4 @@ module.exports = async ({getNamedAccounts,deployments}) =>{
     log("CCIP Simulator contarct deployed successfully");
 }
 
-module.exports.tags = ['test','all','ccip'];
+module.exports.tags = ['sourcechain','all','destchain'];

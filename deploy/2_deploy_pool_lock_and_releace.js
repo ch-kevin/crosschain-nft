@@ -42,7 +42,7 @@ module.exports = async ({getNamedAccounts,deployments}) =>{
     log("nftPoolLockAndRelease contarct deployed successfully");
 }
 
-module.exports.tags = ['sourcechain','all','plar'];
+module.exports.tags = ['sourcechain','all'];
 
 
 /*

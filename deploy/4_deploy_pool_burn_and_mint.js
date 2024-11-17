@@ -6,13 +6,13 @@ module.exports = async ({getNamedAccounts,deployments}) =>{
 
     log("NFTPoolBurnAndMint deploying...");
 
-    const ccipSimulatorDeployment = await deployments.get("CCIPLocalSimulator");
-    const ccipSimulator = await ethers.getContractAt("CCIPLocalSimulator",ccipSimulatorDeployment);
-    
-    const ccipCinfig = await ccipSimulator.configuration();
+    const ccipSimulatorTx = await deployments.get("CCIPLocalSimulator")
+    const ccipSimulator = await ethers.getContractAt("CCIPLocalSimulator", ccipSimulatorTx.address)
+    const ccipConfig = await ccipSimulator.configuration()
 
-    const destChinaRouter = ccipCinfig.destinationRouter_;
-    const linkTokenAddr = ccipCinfig.linkToken_;
+
+    const router = ccipConfig.destinationRouter_
+    const linkTokenAddr = ccipConfig.linkToken_
 
     const wnftDeployment = await deployments.get("WarppedKevinToken");
     const wnftAddr = wnftDeployment.address;
@@ -29,14 +29,15 @@ module.exports = async ({getNamedAccounts,deployments}) =>{
     )*/
 
     // address _router, address _link, address wnftAddr
+    
     await deploy("NFTPoolBrunAndMint", {
         contract: "NFTPoolBrunAndMint",
         from: firstAccounts,
         log: true,
-        args: [destChinaRouter,linkTokenAddr,wnftAddr]
+        args: [router,linkTokenAddr,wnftAddr]
     });
 
     log("NFTPoolBurnAndMint contarct deployed successfully");
 }
 
-module.exports.tags = ['destchain','all','pbam'];
+module.exports.tags = ['destchain','all'];
